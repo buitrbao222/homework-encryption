@@ -9,7 +9,7 @@
 
 let alphabet = 'abcdefghijklmnopqrstuvwxyz';
 
-function substitutionEncrypt(message, newalpha) {
+export function substitutionEncrypt(message, newalpha) {
   let result = '';
   //let newalpha = "xnyahpogzqwbtsflrcvmuekjdi"; shift(alphabet);
 
@@ -21,7 +21,7 @@ function substitutionEncrypt(message, newalpha) {
   return result;
 }
 
-function substitutionDecrypt(cipher, newalpha) {
+export function substitutionDecrypt(cipher, newalpha) {
   let result = '';
   cipher = cipher.toLowerCase();
   for (let i = 0; i < cipher.length; i++) {
@@ -30,7 +30,3 @@ function substitutionDecrypt(cipher, newalpha) {
   }
   return result;
 }
-
-let en = substitutionEncrypt('hentoithubay', 'xnyahpogzqwbtsflrcvmuekjdi');
-let de = substitutionDecrypt('ghsmfzmgunxd', 'xnyahpogzqwbtsflrcvmuekjdi');
-console.log(en, de);

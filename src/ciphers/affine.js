@@ -67,7 +67,3 @@ export function affineDecrypt(ciphertext, a, b, m) {
     .map(char => decipherChar(char, inverse, b, m))
     .join('');
 }
-
-let cipher = affineEncrypt('hentoithubay', 5, 6, 26);
-let message = affineDecrypt('patxyuxpclgw', 5, 6, 26);
-console.log(cipher, message);

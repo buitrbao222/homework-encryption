@@ -53,7 +53,7 @@ function getPremodMatrix(columnVectors, dimensions, keyArray) {
   return premodArray;
 }
 // Function to implement Hill Cipher
-function hillEncrypt(plainT, key) {
+export function hillEncrypt(plainT, key) {
   let keyArray = getKeyMatrix(key);
   var dimension = 3;
   var encryptedArray = [];
@@ -196,7 +196,7 @@ function search(aChar) {
   return alphabet.indexOf(letter);
 }
 
-function hillDecrypt(ciphT, key) {
+export function hillDecrypt(ciphT, key) {
   let keyArray = getKeyMatrix(key);
   var decryptedArray = [];
   var determinant;
@@ -306,13 +306,3 @@ function hillDecrypt(ciphT, key) {
   let result = reverseSearch(decryptedArray, 3).toString().replace(/,/gi, '');
   return result;
 }
-
-// Driver code
-// Get the message to be encrypted
-let message = 'HELLOWORLD';
-
-// Key must be cănable
-let key = 'GYBNQKURP';
-
-let cipher = hillEncrypt(message, key);
-let plain = hillDecrypt(cipher, key);

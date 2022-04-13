@@ -8,17 +8,18 @@
 // decode("ifoupjuivcbz", 1) -> return "hentoithubay"
 
 let alphabet = 'abcdefghijklmnopqrstuvwxyz';
-let newalpha = '';
 
 function shift(n) {
+  let newalpha = '';
   for (let i = 0; i < alphabet.length; i++) {
     let offset = (i + n) % alphabet.length;
     newalpha += alphabet[offset];
   }
+  return newalpha;
 }
 
-function caesarEncrypt(message, key) {
-  shift(key);
+export function caesarEncrypt(message, key) {
+  const newalpha = shift(key);
   let result = '';
   message = message.toLowerCase();
   for (let i = 0; i < message.length; i++) {
@@ -28,8 +29,8 @@ function caesarEncrypt(message, key) {
   return result;
 }
 
-function caesarDecrypt(cipher, key) {
-  shift(key);
+export function caesarDecrypt(cipher, key) {
+  const newalpha = shift(key);
   let result = '';
   cipher = cipher.toLowerCase();
   for (let i = 0; i < cipher.length; i++) {
@@ -38,7 +39,3 @@ function caesarDecrypt(cipher, key) {
   }
   return result;
 }
-
-let en = caesarEncrypt('hentoithubay', 1);
-let de = caesarDecrypt('ifoupjuivcbz', 1);
-console.log(en, de);

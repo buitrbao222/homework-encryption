@@ -1,7 +1,32 @@
 import { useForm } from 'react-hook-form';
 import FileSVG from './FileSVG';
+import { caesarEncrypt, caesarDecrypt } from './ciphers/caesar';
+import {
+  substitutionEncrypt,
+  substitutionDecrypt,
+} from './ciphers/substitution';
+import { hillEncrypt, hillDecrypt } from './ciphers/hill';
+import { vigenereEncrypt, vigenereDecrypt } from './ciphers/vigenere';
+import { affineEncrypt, affineDecrypt } from './ciphers/affine';
 
 const ciphers = ['caesar', 'substitution', 'affine', 'vigenere', 'hill'];
+
+const functions = {
+  encrypt: {
+    caesar: caesarEncrypt,
+    substitution: substitutionEncrypt,
+    hill: hillEncrypt,
+    vigenere: vigenereEncrypt,
+    affine: affineEncrypt,
+  },
+  decrypt: {
+    caesar: caesarDecrypt,
+    substitution: substitutionDecrypt,
+    hill: hillDecrypt,
+    vigenere: vigenereDecrypt,
+    affine: affineDecrypt,
+  },
+};
 
 function App() {
   const { register, handleSubmit, setValue, watch } = useForm({
@@ -12,55 +37,66 @@ function App() {
 
   const cipher = watch('cipher');
 
-  const encryptSubmit = handleSubmit(
-    data => {
-      const { decrypted, key, a, b } = data;
+  function solve(outputType, data) {
+    let key = data.key;
+    let a = data.a;
+    let b = data.b;
 
-      if (cipher === 'caesar') {
-        if (isNaN(+key)) {
-          alert('Khóa phải là số');
-          return;
-        }
+    // Validate and clean input data
+    if (cipher === 'caesar') {
+      if (isNaN(+key)) {
+        alert('Khóa phải là số');
+        return;
       }
 
-      if (cipher === 'affine') {
-        if (isNaN(+a)) {
-          alert('a phải là số');
-          return;
-        }
-
-        if (isNaN(+b)) {
-          alert('b phải là số');
-          return;
-        }
+      key = +key;
+    } else if (cipher === 'affine') {
+      if (isNaN(+a)) {
+        alert('a phải là số');
+        return;
       }
 
-      if (cipher === 'hill') {
-        if (key.length !== 9) {
-          alert('Khóa phải có độ dài là 9');
-          return;
-        }
+      a = +a;
+
+      if (isNaN(+b)) {
+        alert('b phải là số');
+        return;
       }
 
-      if (cipher === 'substitution') {
+      b = +b;
+    } else if (cipher === 'hill') {
+      if (key.length !== 9) {
+        alert('Khóa phải có độ dài là 9');
+        return;
       }
-
-      if (cipher === 'vigenere') {
+    } else if (cipher === 'substitution') {
+      if (key.length !== 26) {
+        alert('Khóa phải có độ dài là 26');
+        return;
       }
-    },
-    error => {
-      console.log(error);
     }
-  );
 
-  const decryptSubmit = handleSubmit(
-    data => {
-      console.log('decrypt', data);
-    },
-    error => {
-      console.log(error);
+    // Solve
+    let result;
+    const inputType = outputType === 'encrypt' ? 'decrypted' : 'encrypted';
+    const inputData = data[inputType];
+
+    if (cipher === 'affine') {
+      result = functions[outputType][cipher](inputData, a, b, 26);
+    } else {
+      result = functions[outputType][cipher](inputData, key);
     }
-  );
+
+    setValue(outputType + 'ed', result);
+  }
+
+  const encryptSubmit = handleSubmit(data => {
+    solve('encrypt', data);
+  });
+
+  const decryptSubmit = handleSubmit(data => {
+    solve('decrypt', data);
+  });
 
   function handleKeyFileChange(e) {
     const file = e.target.files[0];

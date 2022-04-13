@@ -63,17 +63,12 @@ function cipherText(str, key) {
   return cipher_text;
 }
 
-function vigenereEncrypt(plain = '', key = '') {
+export function vigenereEncrypt(plain = '', key = '') {
   let k = generateKey(plain, key.toLowerCase());
   return cipherText(plain, k);
 }
 
-function vigenereDecrypt(cipher = '', key = '') {
+export function vigenereDecrypt(cipher = '', key = '') {
   let k = generateKey(cipher, key.toLowerCase());
   return originalText(cipher, k);
 }
-
-let secretKey = 'secret';
-let cipher = vigenereEncrypt('fuckYou', secretKey);
-let decrypted = vigenereDecrypt(cipher, secretKey);
-console.log({ cipher, decrypted });
