@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind utilities;
+
+input,
+select,
+textarea {
+  @apply block border border-black p-2 text-lg;
+}
+
+textarea {
+  width: 100%;
+}
+
+button {
+  @apply block border border-black p-2 text-lg font-medium;
+}
+
+button:hover {
+  @apply bg-black text-white cursor-pointer;
+}
+
+select:focus,
+input:focus,
+textarea:focus {
+  @apply outline-none;
+}
+
+label {
+  @apply block text-lg font-medium mb-1;
+}
