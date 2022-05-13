@@ -9,7 +9,7 @@
 
 let alphabet = 'abcdefghijklmnopqrstuvwxyz';
 
-export function substitutionEncrypt(message, newalpha) {
+export function encrypt(message, newalpha) {
   let result = '';
   //let newalpha = "xnyahpogzqwbtsflrcvmuekjdi"; shift(alphabet);
 
@@ -21,7 +21,7 @@ export function substitutionEncrypt(message, newalpha) {
   return result;
 }
 
-export function substitutionDecrypt(cipher, newalpha) {
+export function decrypt(cipher, newalpha) {
   let result = '';
   cipher = cipher.toLowerCase();
   for (let i = 0; i < cipher.length; i++) {

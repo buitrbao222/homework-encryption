@@ -18,7 +18,7 @@ function shift(n) {
   return newalpha;
 }
 
-export function caesarEncrypt(message, key) {
+export function encrypt(message, key) {
   const newalpha = shift(key);
   let result = '';
   message = message.toLowerCase();
@@ -29,7 +29,7 @@ export function caesarEncrypt(message, key) {
   return result;
 }
 
-export function caesarDecrypt(cipher, key) {
+export function decrypt(cipher, key) {
   const newalpha = shift(key);
   let result = '';
   cipher = cipher.toLowerCase();

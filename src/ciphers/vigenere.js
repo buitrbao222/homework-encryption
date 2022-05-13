@@ -63,12 +63,12 @@ function cipherText(str, key) {
   return cipher_text;
 }
 
-export function vigenereEncrypt(plain = '', key = '') {
+export function encrypt(plain = '', key = '') {
   let k = generateKey(plain, key.toLowerCase());
   return cipherText(plain, k);
 }
 
-export function vigenereDecrypt(cipher = '', key = '') {
+export function decrypt(cipher = '', key = '') {
   let k = generateKey(cipher, key.toLowerCase());
   return originalText(cipher, k);
 }

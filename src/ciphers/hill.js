@@ -53,7 +53,7 @@ function getPremodMatrix(columnVectors, dimensions, keyArray) {
   return premodArray;
 }
 // Function to implement Hill Cipher
-export function hillEncrypt(plainT, key) {
+export function encrypt(plainT, key) {
   let keyArray = getKeyMatrix(key);
   var dimension = 3;
   var encryptedArray = [];
@@ -216,7 +216,7 @@ export function calculateHillDeterminant(key) {
   return determinant;
 }
 
-export function hillDecrypt(ciphT, key) {
+export function decrypt(ciphT, key) {
   let keyArray = getKeyMatrix(key);
   var decryptedArray = [];
   var determinant;

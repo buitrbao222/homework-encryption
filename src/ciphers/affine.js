@@ -9,6 +9,8 @@
 
 const LOWERCASE_ASCII_A = 97;
 
+const m = 26;
+
 function mod(a, b) {
   return ((a % b) + b) % b;
 }
@@ -35,35 +37,35 @@ function mmi(a, b) {
   }
 }
 
-function encipherChar(plainchar, a, b, m) {
+function encipherChar(plainchar, a, b) {
   let plaincharNum = plainchar.charCodeAt(0) - LOWERCASE_ASCII_A;
   let ciphercharNum = a * plaincharNum + b;
   ciphercharNum = mod(ciphercharNum, m);
   return String.fromCharCode(ciphercharNum + LOWERCASE_ASCII_A);
 }
 
-function decipherChar(cipherchar, inverse, b, m) {
+function decipherChar(cipherchar, inverse, b) {
   let ciphercharNum = cipherchar.charCodeAt(0) - LOWERCASE_ASCII_A;
   let plaincharNum = inverse * (ciphercharNum - b);
   plaincharNum = mod(plaincharNum, m);
   return String.fromCharCode(plaincharNum + LOWERCASE_ASCII_A);
 }
 
-export function affineEncrypt(plaintext, a, b, m) {
+export function encrypt(plaintext, a, b) {
   // check if an inverse to a exists
   mmi(a, m);
 
   return plaintext
     .split('')
-    .map(char => encipherChar(char, a, b, m))
+    .map(char => encipherChar(char, a, b))
     .join('');
 }
 
-export function affineDecrypt(ciphertext, a, b, m) {
+export function decrypt(ciphertext, a, b) {
   const inverse = mmi(a, m);
 
   return ciphertext
     .split('')
-    .map(char => decipherChar(char, inverse, b, m))
+    .map(char => decipherChar(char, inverse, b))
     .join('');
 }
