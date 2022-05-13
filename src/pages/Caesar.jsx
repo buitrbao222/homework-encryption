@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { decrypt, encrypt } from '../ciphers/Caesar';
+import { decrypt, encrypt } from '../ciphers/Caesar.js';
 import CipherLayout from '../components/CipherLayout';
 
 export default function CaesarPage() {

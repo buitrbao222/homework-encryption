@@ -50,7 +50,7 @@ export default function App() {
       </div>
 
       <Routes>
-        <Route path="/" element={<Navigate to="/caesar" />} />
+        <Route path="/" element={<Navigate to="/Caesar" />} />
         <Route path="/Caesar" element={<CaesarPage />} />
         <Route path="/Substitution" element={<SubstitutionPage />} />
         <Route path="/Affine" element={<AffinePage />} />
