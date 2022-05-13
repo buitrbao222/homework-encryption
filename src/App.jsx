@@ -5,7 +5,11 @@ import {
   substitutionEncrypt,
   substitutionDecrypt,
 } from './ciphers/substitution';
-import { hillEncrypt, hillDecrypt } from './ciphers/hill';
+import {
+  hillEncrypt,
+  hillDecrypt,
+  calculateHillDeterminant,
+} from './ciphers/hill';
 import { vigenereEncrypt, vigenereDecrypt } from './ciphers/vigenere';
 import { affineEncrypt, affineDecrypt } from './ciphers/affine';
 
@@ -69,6 +73,17 @@ function App() {
         alert('Khóa phải có độ dài là 9');
         return;
       }
+
+      const determinant = calculateHillDeterminant(key);
+
+      if (
+        determinant === 0 ||
+        determinant % 2 === 0 ||
+        determinant % 13 === 0
+      ) {
+        alert('Khóa không hợp lệ');
+        return;
+      }
     } else if (cipher === 'substitution') {
       if (key.length !== 26) {
         alert('Khóa phải có độ dài là 26');
@@ -120,7 +135,7 @@ function App() {
   }
 
   return (
-    <div className="p-10 flex flex-col gap-4">
+    <div className="flex flex-col gap-4 p-10">
       <div>
         <label>Thuật toán</label>
         <select {...register('cipher')} className="capitalize">
@@ -148,7 +163,7 @@ function App() {
         <div>
           <label>Khóa</label>
 
-          <div className="flex gap-4 items-center">
+          <div className="flex items-center gap-4">
             <input {...register('key')} />
 
             <label htmlFor="key-file" className="cursor-pointer">

@@ -196,6 +196,26 @@ function search(aChar) {
   return alphabet.indexOf(letter);
 }
 
+export function calculateHillDeterminant(key) {
+  let keyArray = getKeyMatrix(key);
+
+  var leftElement =
+    keyArray[0][0] *
+    (keyArray[1][1] * keyArray[2][2] - keyArray[1][2] * keyArray[2][1]);
+
+  var middleElement =
+    keyArray[0][1] *
+    (keyArray[1][0] * keyArray[2][2] - keyArray[1][2] * keyArray[2][0]);
+
+  var rightElement =
+    keyArray[0][2] *
+    (keyArray[1][0] * keyArray[2][1] - keyArray[1][1] * keyArray[2][0]);
+
+  var determinant = leftElement - middleElement + rightElement;
+
+  return determinant;
+}
+
 export function hillDecrypt(ciphT, key) {
   let keyArray = getKeyMatrix(key);
   var decryptedArray = [];
@@ -211,17 +231,11 @@ export function hillDecrypt(ciphT, key) {
   columnVectors = getColumnVectors(trigraph, 3);
 
   // determinant calculation components
-  var leftElement =
-    keyArray[0][0] *
-    (keyArray[1][1] * keyArray[2][2] - keyArray[1][2] * keyArray[2][1]);
   var middleElement =
     keyArray[0][1] *
     (keyArray[1][0] * keyArray[2][2] - keyArray[1][2] * keyArray[2][0]);
-  var rightElement =
-    keyArray[0][2] *
-    (keyArray[1][0] * keyArray[2][1] - keyArray[1][1] * keyArray[2][0]);
 
-  determinant = leftElement - middleElement + rightElement;
+  determinant = calculateHillDeterminant(key);
   multiplicativeInverse = modInverse(determinant % 26, 26);
 
   // cofactor calculation
